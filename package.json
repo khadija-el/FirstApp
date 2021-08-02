@@ -16,7 +16,9 @@
     "init": "git init && git remote add origin https://github.com/khadija-el/FirstApp.git",
     "cmt": "git add . && git commit -m \"commit\"",
     "push": "git add . && git commit -m \"deploy\" && git push -u origin FirstApp",
-    "git-login": "git config --global user.email",
+    "git-email": "git config --global user.email elhaddaoui19@gmail.com",
+    "git-name": "git config --global user.name khadija-el",
+    "git-login":"npm run git-email && npm run git-name",
     "git": "npm run f-git-cm && npm run b-git-cm",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
