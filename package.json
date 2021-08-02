@@ -1,0 +1,27 @@
+{
+  "name": "firstapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "f": "cd angular && ng serve  --hmr --port 4204",
+    "m0": "node ./remove-script.js && dotnet ef migrations add first && dotnet ef database drop -f && dotnet ef database update && dotnet watch run",
+    "m": "dotnet ef migrations add first && dotnet ef database update && dotnet watch run",
+    "b": "dotnet watch run",
+    "f-p": "cd angular && ng build --prod",
+    "b-p": "dotnet publish -o ./deploy",
+    "b-p2": "dotnet publish --runtime win7-x86 -o ./deploy",
+    "ci": "npm run f-p && npm run push",
+    "prod": "npm run prod-front && npm run prod-back",
+    "init": "git init && git remote add origin https://github.com/khadija-el/FirstApp.git",
+    "cmt": "git add . && git commit -m \"commit\"",
+    "push": "git add . && git commit -m \"deploy\" && git push -u origin FirstApp",
+    "git-login": "git config --global user.email",
+    "git": "npm run f-git-cm && npm run b-git-cm",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {}
+}

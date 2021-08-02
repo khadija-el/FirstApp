@@ -1,0 +1,14 @@
+**/dist
+**/deploy2
+**/deploy
+**/e2e
+# **/.vscode
+**/node_modules
+# **/wwwroot
+**/bin
+**/obj
+# *.docx
+*.xlsx
+
+*-shm
+*-wal
