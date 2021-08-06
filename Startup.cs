@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using System.IO;
 
 namespace FistApi
 {
@@ -72,12 +73,12 @@ namespace FistApi
                 {
                     await next();
 
-                    // if (context.Response.StatusCode == 404
-                    //     && !Path.HasExtension(context.Request.Path.Value))
-                    // {
-                    //     context.Request.Path = "/index.html";
-                    //     await next();
-                    // }
+                    if (context.Response.StatusCode == 404
+                        && !Path.HasExtension(context.Request.Path.Value))
+                    {
+                        context.Request.Path = "/index.html";
+                        await next();
+                    }
                 });
             }
 
