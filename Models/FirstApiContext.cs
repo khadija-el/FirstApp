@@ -7,6 +7,11 @@ namespace FistApi.Models
 {
     public partial class FistApiContext : DbContext
     {
+    //     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    // {
+    //     var coonectionString = "data source=DESKTOP-JS5KSFO\\COMMERCIAL;database=FirstApp;user id=sa; password=mo@Git#13";
+    //     optionsBuilder.UseSqlServer(coonectionString);
+    // }
         public FistApiContext()
         {
             // dotnet tool install -g dotnet-aspnet-codegenerator

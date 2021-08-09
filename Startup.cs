@@ -14,6 +14,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System.IO;
+using Microsoft.AspNetCore.StaticFiles;
+using Extensions;
 
 namespace FistApi
 {
@@ -29,8 +31,7 @@ namespace FistApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddCors(options =>
+                   services.AddCors(options =>
              {
                   options.AddPolicy("CorsPolicy", builder =>
                {
@@ -41,18 +42,18 @@ namespace FistApi
                     .AllowAnyHeader();
                });
               });
-            services.AddControllers();
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "FistApi", Version = "v1" });
-            });
+             services.AddControllers();
+            // services.AddSwaggerGen(c =>
+            // {
+            //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "FistApi", Version = "v1" });
+            // });
 
                services.AddDbContext<FistApiContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("FirstApp"));
+                // options.UseSqlServer(Configuration.GetConnectionString("FirstApp"));
                 // options.UseSqlServer(Configuration.GetConnectionString("db"));
-                // options.UseSqlite(Configuration.GetConnectionString("sqlite"));
+                 options.UseSqlite(Configuration.GetConnectionString("sqlite"));
                 // options.EnableSensitiveDataLogging();
             });
 
@@ -86,9 +87,26 @@ namespace FistApi
 
             app.UseRouting();
 
+
+            app.UseCors("CorsPolicy");
+
+            // app.UseHttpsRedirection();
+
+
             app.UseAuthentication();
             app.UseAuthorization();
-            // app.UseMiddleware<ErrorHandler>();
+            app.UseMiddleware<ErrorHandler>();
+
+            var provider = new FileExtensionContentTypeProvider();
+            // provider.Mappings.Add(".exe", "application/octect-stream");
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                ServeUnknownFileTypes = true, //allow unkown file types also to be served
+                // DefaultContentType = "Whatver you want eg: plain/text" //content type to returned if fileType is not known.
+                ContentTypeProvider = provider
+            });
+
+            // app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {

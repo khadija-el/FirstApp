@@ -28,8 +28,28 @@ namespace FistApi.Controllers
             // _appSettings = appSettings.Value;
         }
 
+        [HttpGet("{startIndex}/{pageSize}")]
+        public async Task<IActionResult> EL(int startIndex, int pageSize)
+        {
+
+            var q = _context.Users
+                ;
+
+
+            int count = await q.CountAsync();
+
+            var list = await q.Skip(startIndex)
+                   .Take(pageSize)
+                //    .Include(e => e.Organisme)
+                   .Include(e => e.Profil)
+                   .ToListAsync()
+               ;
+
+            return Ok(new { list = list, count = count });
+        }
+
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{prenom}/{organisme}")]
-        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, string nom, string prenom, int organisme)
+        public async Task<IActionResult> GetAll2(int startIndex, int pageSize, string sortBy, string sortDir, string nom, string prenom, int organisme)
         {
 
             var q = _context.Users.Where(u => nom == "*" ? true : u.Nom.Contains(nom))
